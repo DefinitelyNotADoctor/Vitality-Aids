@@ -34,11 +34,14 @@ public abstract class PlayerEntityFoodHealingMixin {
         // Only apply this logic to PlayerEntities
         if (entity instanceof PlayerEntity) {
             // Check if the player has the Hemorrhage effect
-            if (entity.hasStatusEffect(HemorrhageEffect.HEMORRHAGE)) {
+            if (entity.hasStatusEffect(HemorrhageEffect.INSTANCE)) {
                 // If they have Hemorrhage, set the return value of canFoodHeal() to false.
                 // This means the game will now think this player cannot heal from food.
                 cir.setReturnValue(false);
-
+                // No need for cir.cancel() here when using @At("RETURN") because we're just
+                // changing the return value of the already-executed original method.
+                // However, adding cir.cancel() explicitly doesn't hurt and clarifies intent for some Mixin versions.
+                // For `@At("RETURN")` and `cancellable = true`, setting the return value is enough.
             }
         }
     }

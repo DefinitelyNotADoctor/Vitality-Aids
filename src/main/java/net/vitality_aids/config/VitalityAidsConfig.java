@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+
 // This class defines the structure of our mod's configuration file.
 public class VitalityAidsConfig {
     // Gson instance for reading/writing JSON
@@ -74,7 +75,7 @@ public class VitalityAidsConfig {
         public boolean disableMilkClearsEffects = true;
 
     }
-        // Inner class to hold Hemorrhage configuration
+    // Inner class to hold Hemorrhage configuration
     public static class HemorrhageSettings {
 
         @Expose
@@ -464,4 +465,5 @@ public class VitalityAidsConfig {
         VitalityAids.LOGGER.info("Added default medicine entries to config.");
         save();
     }
+
 }

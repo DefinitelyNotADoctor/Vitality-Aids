@@ -4,22 +4,15 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.vitality_aids.VitalityAids;
 import net.vitality_aids.config.VitalityAidsConfig;
 
 // This class defines the custom Hemorrhage status effect.
 public class HemorrhageEffect extends StatusEffect {
-
-    public static final RegistryEntry<StatusEffect> HEMORRHAGE = Registry.registerReference(
-            Registries.STATUS_EFFECT,
-            Identifier.of(VitalityAids.MOD_ID, "hemorrhage"),
-            new HemorrhageEffect()
-    );
+    // Singleton instance for easy access
+    public static final HemorrhageEffect INSTANCE = new HemorrhageEffect();
 
     private HemorrhageEffect() {
         // Hemorrhage is harmful (HARMFUL) and does not show particles (NONE).
@@ -29,7 +22,7 @@ public class HemorrhageEffect extends StatusEffect {
 
     // This method is called every tick while the entity has the effect.
     @Override
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         // Only apply effects on the server side
         if (!entity.getWorld().isClient()) {
             VitalityAidsConfig.HemorrhageSettings settings = VitalityAids.CONFIG.hemorrhageSettings;
@@ -38,31 +31,17 @@ public class HemorrhageEffect extends StatusEffect {
             entity.damage(entity.getWorld().getDamageSources().magic(), (float) settings.damagePerTick);
 
             // Apply Mining Fatigue
-            if (settings.miningFatigueLevel > 0) {
-                entity.addStatusEffect(new StatusEffectInstance(
-                        StatusEffects.MINING_FATIGUE, // Use direct RegistryEntry for vanilla effect
-                        2, // Duration of 2 ticks to ensure it's reapplied often
-                        settings.miningFatigueLevel - 1, // Amplifier is 0-indexed
-                        true, // Ambient
-                        false, // No particles
-                        false // No icon (optional, depends on your preference for these minor debuffs)
-                ));
+            StatusEffect miningFatigue = Registries.STATUS_EFFECT.get(new Identifier("minecraft:mining_fatigue"));
+            if (miningFatigue != null) {
+                entity.addStatusEffect(new StatusEffectInstance(miningFatigue, 2, settings.miningFatigueLevel - 1, true, false, false));
             }
 
             // Apply Weakness
-            // Use StatusEffects.WEAKNESS directly, which is already a RegistryEntry<StatusEffect>
-            if (settings.weaknessLevel > 0) {
-                entity.addStatusEffect(new StatusEffectInstance(
-                        StatusEffects.WEAKNESS, // Use direct RegistryEntry for vanilla effect
-                        2, // Duration of 2 ticks
-                        settings.weaknessLevel - 1, // Amplifier is 0-indexed
-                        true, // Ambient
-                        false, // No particles
-                        false // No icon
-                ));
+            StatusEffect weakness = Registries.STATUS_EFFECT.get(new Identifier("minecraft:weakness"));
+            if (weakness != null) {
+                entity.addStatusEffect(new StatusEffectInstance(weakness, 2, settings.weaknessLevel - 1, true, false, false));
             }
         }
-        return true;
     }
 
     // Allow the effect to tick continuously (every tick)
@@ -71,9 +50,7 @@ public class HemorrhageEffect extends StatusEffect {
         return true; // Apply update effect every tick
     }
 
-    public static void register() {
-        // Just accessing the static field triggers registration
-        var ignored = HEMORRHAGE;
-    }
-
+    // Method to prevent healing from food (will be handled via Mixin or Event)
+    // This specific method isn't for blocking healing, but for effects applied.
+    // The "cant heal from eating food" will require a Mixin.
 }

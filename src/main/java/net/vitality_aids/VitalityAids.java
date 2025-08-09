@@ -1,30 +1,28 @@
 package net.vitality_aids;
 
+
+
 import net.fabricmc.api.ModInitializer;
-
-
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.GameRules;
 import net.vitality_aids.config.VitalityAidsConfig;
-import net.vitality_aids.effects.HemorrhageEffect;
 import net.vitality_aids.item.CustomMedicineItem;
 import net.vitality_aids.item.ModItemGroups;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+
 public class VitalityAids implements ModInitializer {
 	public static final String MOD_ID = "vitality_aids";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static RegistryEntry.Reference<StatusEffect> HEMORRHAGE_EFFECT_REGISTRY_ENTRY;
 
 	public static VitalityAidsConfig CONFIG;
 
@@ -36,8 +34,7 @@ public class VitalityAids implements ModInitializer {
 		CONFIG = VitalityAidsConfig.load();
 
 		// 2. Register custom status effects
-	//	Registry.register(Registries.STATUS_EFFECT, new Identifier(MOD_ID, "hemorrhage"), net.vitality_aids.effects.HemorrhageEffect.INSTANCE);
-		HemorrhageEffect.register();
+		Registry.register(Registries.STATUS_EFFECT, new Identifier(MOD_ID, "hemorrhage"), net.vitality_aids.effects.HemorrhageEffect.INSTANCE);
 
 		// 3. Register custom item groups (call this to ensure your group is registered)
 		ModItemGroups.registerItemGroups();
@@ -50,6 +47,7 @@ public class VitalityAids implements ModInitializer {
 		// 5. Set the natural_regeneration game rule to its flag on server start
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
 			// Get the game rules for the overworld (main world)
+			// You might want to apply this to all dimensions if necessary, but overworld is most common.
 			GameRules gameRules = server.getGameRules();
 
 			// Get the desired state from the config
@@ -75,15 +73,9 @@ public class VitalityAids implements ModInitializer {
 				if(maxCount > 64)
 					maxCount = 64;
 
-			Item medicineItem = new CustomMedicineItem(medicineEntry, new Item.Settings().maxCount(medicineEntry.maxStackCount));
-			Registry.register(
-					Registries.ITEM,
-					Identifier.of(MOD_ID, medicineEntry.id),
-					medicineItem
-			);
-
+			Item medicineItem = new CustomMedicineItem(medicineEntry, new FabricItemSettings().maxCount(maxCount));
+			Registry.register(Registries.ITEM, new Identifier(MOD_ID, medicineEntry.id), medicineItem);
 			LOGGER.info("Registered medicine: {}", medicineEntry.id);
-
 
 			ItemGroupEvents.modifyEntriesEvent(ModItemGroups.VITALITY_AIDS_GROUP_KEY).register(entries -> entries.add(medicineItem));
 		}

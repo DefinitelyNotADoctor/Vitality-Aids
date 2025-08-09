@@ -14,6 +14,7 @@ import net.vitality_aids.VitalityAids; // For config access and logging
 public class MilkCleanEffectsMixin {
 
     // Redirect the call to LivingEntity.clearStatusEffects()
+    // This allows us to conditionally prevent that method from being called.
     @Redirect(
             method = "finishUsing(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)Lnet/minecraft/item/ItemStack;",
             at = @At(
@@ -21,8 +22,10 @@ public class MilkCleanEffectsMixin {
                     target = "Lnet/minecraft/entity/LivingEntity;clearStatusEffects()Z" // Target the clearStatusEffects method
             )
     )
-    private boolean vitalityAids$onClearStatusEffects(LivingEntity instance) {
+    // IMPORTANT: Added ItemStack stack parameter as required by the error message.
+    private boolean vitalityAids$onClearStatusEffects(LivingEntity instance, ItemStack stack) {
         // 'instance' refers to the LivingEntity object on which clearStatusEffects() would be called.
+        // 'stack' refers to the ItemStack (milk bucket) being used.
 
         // Check if the feature is disabled in the config
         if (!VitalityAids.CONFIG.globalSettings.disableMilkClearsEffects) {

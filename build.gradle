@@ -1,8 +1,7 @@
 plugins {
-	id 'fabric-loom' version "${loom_version}"
+	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
 }
-
 version = project.mod_version
 group = project.maven_group
 
@@ -94,16 +93,18 @@ sourceSets {
 }
 dependencies {
 	// To change the versions see the gradle.properties file
+	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	//mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	mappings "net.fabricmc:yarn:1.20.1+build.1:v2"
 
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	// Fabric API. This is technically optional, but you probably want it anyway.
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	// Uncomment the following line to enable the deprecated Fabric API modules.
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
-	//modImplementation "curse.maven:reforge-stone-1219340:6380296"
-	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
 }
 
@@ -116,7 +117,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 17
 }
 
 java {
@@ -124,10 +125,9 @@ java {
 	// if it is present.
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
-	toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-	sourceCompatibility = JavaVersion.VERSION_21 // Change this line
-	targetCompatibility = JavaVersion.VERSION_21 // Change this line
+	sourceCompatibility = JavaVersion.VERSION_17 // Change this line
+	targetCompatibility = JavaVersion.VERSION_17 // Change this line
 }
 
 jar {

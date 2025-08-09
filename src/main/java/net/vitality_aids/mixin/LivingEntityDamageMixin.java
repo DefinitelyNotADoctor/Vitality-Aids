@@ -1,14 +1,10 @@
 package net.vitality_aids.mixin;
 
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.GolemEntity; // For Golem check, if needed
 import net.minecraft.entity.player.PlayerEntity; // For Player specific logic
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World; // To check if it's client or server side
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,7 +40,7 @@ public abstract class LivingEntityDamageMixin {
             return;
         }
         // Don't apply Hemorrhage if the entity already has it
-        if (entity.hasStatusEffect(HemorrhageEffect.HEMORRHAGE)) {
+        if (entity.hasStatusEffect(HemorrhageEffect.INSTANCE)) {
             return;
         }
 
@@ -101,6 +97,7 @@ public abstract class LivingEntityDamageMixin {
             return;
         }
         // Duration of Hemorrhage (e.g., 20 seconds = 20 * 20 ticks)
+        // You might want to make this configurable
         int duration = hemorrhageSettings.duration;//20 * 20;
         // Amplifier (level of Hemorrhage effect, 0 for level 1)
         int amplifier = hemorrhageSettings.amplifier;
@@ -109,13 +106,16 @@ public abstract class LivingEntityDamageMixin {
         boolean ambient = hemorrhageSettings.ambient;
         boolean showIcon = hemorrhageSettings.icon;
 
-        entity.addStatusEffect(new StatusEffectInstance(HemorrhageEffect.HEMORRHAGE, duration, amplifier, ambient, showParticles, showIcon));
+        entity.addStatusEffect(new StatusEffectInstance(HemorrhageEffect.INSTANCE, duration, amplifier, ambient, showParticles, showIcon));
         VitalityAids.LOGGER.debug("Applied Hemorrhage to {}", entity.getName().getString());
     }
 
     // Helper method to check if an entity is undead (e.g., Zombies, Skeletons)
+    // This is a basic check. More comprehensive checks might involve LivingEntity.isUndead() or specific tags.
     private boolean isUndead(LivingEntity entity) {
-        TagKey<EntityType<?>> undeadTag = TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("minecraft", "undead"));
-        return entity.getType().isIn(undeadTag);
+        // Minecraft's isUndead() method is public and handles many common undead types
+        return entity.isUndead();
+        // You might need to add specific checks for modded undead entities here if isUndead() doesn't cover them.
+        // Example: return entity.isUndead() || entity instanceof UndeadHorseEntity;
     }
 }
