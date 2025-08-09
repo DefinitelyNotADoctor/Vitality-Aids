@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "A  ",
+    "A  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:glow_berries"
+    },
+    "A": {
+      "item": "minecraft:moss_block"
+    }
+  },
+  "result": {
+    "item": "vitality_aids:glow_berry_poultice"
+  }
+}

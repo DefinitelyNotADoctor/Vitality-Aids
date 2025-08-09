@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "B  ",
+    "A  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    "B": {
+      "item": "minecraft:wheat"
+    },
+    "A": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "vitality_aids:fermented_spider_eye_serum"
+  }
+}

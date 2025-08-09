@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "B  ",
+    "A  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:red_mushroom"
+    },
+    "B": {
+      "item": "minecraft:brown_mushroom"
+    },
+    "A": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "vitality_aids:mushroom_tincture"
+  }
+}

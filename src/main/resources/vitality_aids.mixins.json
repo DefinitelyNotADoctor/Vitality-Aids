@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "net.vitality_aids.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"LivingEntityDamageMixin",
+		"PlayerEntityFoodHealingMixin",
+		"MilkCleanEffectsMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

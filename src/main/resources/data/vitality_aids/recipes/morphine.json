@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    " B ",
+    " A "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:honeycomb"
+    },
+    "B": {
+      "item": "minecraft:ink_sac"
+    },
+    "A": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "vitality_aids:morphine"
+  }
+}

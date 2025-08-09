@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    " A ",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "A": {
+      "item": "minecraft:slime_ball"
+    }
+  },
+  "result": {
+    "item": "vitality_aids:slime_plaster"
+  }
+}

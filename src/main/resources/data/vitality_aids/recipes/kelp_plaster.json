@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    " A ",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:kelp"
+    },
+    "A": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "vitality_aids:kelp_plaster"
+  }
+}

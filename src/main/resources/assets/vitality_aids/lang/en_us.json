@@ -1,0 +1,23 @@
+{
+  "item.vitality_aids.plaster": "§2Plaster",
+  "item.vitality_aids.bandage": "§2Bandage",
+  "item.vitality_aids.slime_plaster": "§2Slime Plaster",
+
+  "item.vitality_aids.kelp_plaster": "§2Kelp Plaster",
+  "item.vitality_aids.fermented_spider_eye_serum": "§2Fermented Spider Eye Serum",
+  "item.vitality_aids.glow_berry_poultice": "§2Glow Berry Poultice",
+  "item.vitality_aids.herbal_salve": "§2Herbal Salve",
+  "item.vitality_aids.honey_ointment": "§2Honey Ointment",
+  "item.vitality_aids.mushroom_tincture": "§2Mushroom Tincture",
+  "item.vitality_aids.spider_eye_antiseptic": "§2Spider Eye Antiseptic",
+
+
+  "effect.vitality_aids.hemorrhage": "§cHemorrhage",
+  "effect.vitality_aids.hemorrhage.description": "You are suffering from §cprofuse bleeding§r. This effect deals §cdamage over time§r, inflicts §cMining Fatigue§r and §cWeakness§r, and prevents §cnatural healing from food§r. It is §factivated by:§r\n- Taking §c50%§r or more of your §cmax health§r from a §csingle attack§r.\n- Taking damage while at or below §c25% health§r, with a §c50% chance§r.\nThis debilitating effect persists until treated with §a specialized medicine§r.",
+  "itemGroup.vitality_aids.vitality_aids_group": "Vitality Aids",
+  "key.vitality_aids.activate": "Apply Medicine",
+  "category.vitality_aids": "Vitality Aids",
+
+  "tooltip.vitality_aids.application_time": "§eApplication Time: %ss",
+  "tooltip.vitality_aids.cooldown_time": "§2Cooldown: %ss"
+}

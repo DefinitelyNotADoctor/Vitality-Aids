@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "#  ",
+    "A  "
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:flowers"
+    },
+    "A": {
+      "item": "minecraft:bowl"
+    }
+  },
+  "result": {
+    "item": "vitality_aids:herbal_salve"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CDC",
+    " A ",
+    "BDB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:chest"
+    },
+    "B": {
+      "item": "vitality_aids:bandage"
+    },
+    "C": {
+      "item": "vitality_aids:plaster"
+    },
+    "D": {
+      "item": "vitality_aids:morphine"
+    }
+  },
+  "result": {
+    "item": "vitality_aids:medkit"
+  }
+}
